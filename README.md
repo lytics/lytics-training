@@ -1,2 +1,3 @@
-# lytics-training
-Materials for the Lytics training course
+# Lytics Training
+
+This repository contains materials for the Lytics training course.

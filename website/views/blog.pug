@@ -1,0 +1,29 @@
+extends layout
+
+block content
+  div(id='body')
+    div(class='header')
+      div 
+        h1 Blog
+    div(class='blog')
+      div(class='featured')
+        ul
+          each post in featured
+            li
+              img(src=post.teaser.image.src, alt=post.teaser.image.alt)/
+              div
+                if post.teaser.title
+                  h1 #{post.teaser.title}
+                else
+                  h1 #{post.title}
+                span By #{post.author} on #{post.date}
+                p #{post.teaser.text}
+                a(href=post.url, class='more') Read More
+      div(class='sidebar')
+        h1 Recent Posts
+        each post in recent
+          img(src=post.teaser.image.src, alt=post.teaser.image.alt)/
+          h2 #{post.teaser.title}
+          span By #{post.author} on #{post.date}
+          p #{post.teaser.text}
+          a(href=post.url, class='more') Read More
