@@ -9,7 +9,8 @@ var productsNew = [{
   image: {
     src: '/images/yogurt.jpg',
     alt: ''
-  }
+  },
+  url: '/menu'
 }];
 var blogCups = {
   title: 'No Cook Yogurt Cups',

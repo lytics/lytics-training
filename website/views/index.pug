@@ -11,7 +11,8 @@ block content
         each product in products
           div
             h1 #{product.title}
-            h2 #{product.teaser}
+            a(href=product.url)
+              h2 #{product.teaser}
             p #{product.text}
           img(src=product.image.src, alt=product.image.alt)/
     div(class='footer')
