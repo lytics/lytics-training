@@ -1,0 +1,92 @@
+[
+    {
+        "data": {
+            "_created": "2018-09-17T02:04:10.172Z",
+            "_modified": "2018-09-17T02:04:10.173Z",
+            "_num_conflicts": 0,
+            "_split": 89,
+            "_uid": "116020.452917399",
+            "_uids": [
+                "116020.452917399"
+            ],
+            "channels": [
+                "web"
+            ],
+            "devices": {
+                "desktop": 2
+            },
+            "domains": [
+                "lytics-training-project.appspot.com"
+            ],
+            "event_first_seen": {
+                "gtm.js": "2018-09-17T02:04:10.172Z"
+            },
+            "event_last_seen": {
+                "gtm.js": "2018-09-17T02:04:10.172Z"
+            },
+            "firstvisit_ts": "2018-09-17T02:04:10.172Z",
+            "hashedurls": {
+                "-3479713215530549374": 2
+            },
+            "hourly": {
+                "2": 2
+            },
+            "hourofweek": {
+                "26": 2
+            },
+            "is_bot": "f",
+            "last_active_ts": "2018-09-17T02:04:10.172Z",
+            "lastvisit_ts": "2018-09-17T02:04:10.172Z",
+            "ly_impressions": {
+                "fef7064256413a72b9e83dd9364a0193": 1
+            },
+            "pageviewct_by_section": {
+                "menu": 2
+            },
+            "pf_widget_events": [
+                "show"
+            ],
+            "pf_widget_ids": [
+                "fef7064256413a72b9e83dd9364a0193"
+            ],
+            "pf_widget_layouts": [
+                "bar"
+            ],
+            "pf_widget_types": [
+                "message"
+            ],
+            "pf_widget_variants": [
+                "1"
+            ],
+            "score_frequency": 99,
+            "score_intensity": 0,
+            "score_momentum": 100,
+            "score_propensity": 7,
+            "score_quantity": 1,
+            "score_recency": 100,
+            "segment_events": [
+                {
+                    "id": "e05c0a66fd03a58570a809c72d5d1ae9",
+                    "event": "enter",
+                    "slug": "all",
+                    "enter": "2018-09-17T02:04:10.172653271Z"
+                },
+                {
+                    "id": "5d76aaa11136c5f58aaeed405fb2a6a5",
+                    "event": "enter",
+                    "slug": "ly_frequent_user",
+                    "enter": "2018-09-17T02:04:10.172653271Z"
+                }
+            ],
+            "user_agent": "Chrome",
+            "visit_city": "Portland",
+            "visit_country": "US",
+            "visit_region": "OR"
+        },
+        "meta": {
+            "object": "user",
+            "subscription_id": "99c23f05018f27f35e06b9dedab6de21",
+            "timestamp": "2018-09-17T02:04:13.137641791Z"
+        }
+    }
+]

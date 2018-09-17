@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Segment Monitor</title>
+    <link rel="stylesheet" href="/css/segmon.css">
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/segmon.js"></script>
+    <script>
+        var readEventsEndpoint = '!!! YOUR CLOUD FUNCTION ENDPOINT URL GOES HERE !!!';
+        var position = 0;
+        var isRunning = false;
+        var refreshMs = 4000;
+        $(document).ready(function () {
+            setStatus(false, 'Click start to begin monitoring segmentation activity.');
+            setInterval(function () {
+                if (!isRunning) {
+                    return;
+                }
+                $.getJSON(readEventsEndpoint, function (messages) {
+                    var preposition = position;
+                    for (var i = 0; i < messages.length; i++) {
+                        var record = messages[i].data;
+                        var ids = [];
+                        if (record.email) {
+                            ids.push(record.email);
+                        }
+                        if (record._uid) {
+                            ids.push(record._uid);
+                        }
+                        for (var i2 = 0; i2 < record.segment_events.length; i2++) {
+                            var event = record.segment_events[i2];
+                            position++;
+                            var row = `<tr>` + 
+                                `<td>${position.toLocaleString()}</td>` +
+                                `<td>${formatDate(new Date())}</td>` +
+                                `<td>${ids.join('<br/>')}</td>` +
+                                `<td>${event.event}</td>` +
+                                `<td>${event.slug}</td>` +
+                                `<td>${formatDate(event.enter)}</td>` +
+                                `<td>${formatDate(event.exit)}</td>` + 
+                                `<td>${messages[i].meta.subscription_id}</td>` + 
+                                `</tr>`;
+                            $("#rows").append(row);
+                        }
+                    }
+                    if (position > preposition) {
+                        var value = $("#search").val();
+                        if (value && value.trim().length > 0) {
+                            refreshSearch(value);
+                        }
+                    }
+                });
+            }, refreshMs);
+            $("#start-monitor").click(function () {
+                startMonitor();
+            });
+            $("#stop-monitor").click(function () {
+                stopMonitor();
+            });
+            $("#reset-search").click(function () {
+                $("#search").val('');
+                refreshSearch('');
+            });
+            $("#clear-rows").click(function () {
+                $("#rows").find("tr").remove();
+            });
+            $("#search").on("keyup", function () {
+                var value = $(this).val();
+                refreshSearch(value);
+            });
+            $("#start-monitor").show();
+            $("#stop-monitor").show();
+            $("#clear-rows").show();
+            $("#status").show();
+        });
+        function startMonitor() {
+            if (isRunning) {
+                return;
+            }
+            isRunning = true;
+            setStatus(isRunning, `Started monitoring at ${formatDate(new Date())}.`);
+        }
+        function stopMonitor(msg) {
+            if (!isRunning && !msg) {
+                return;
+            }
+            isRunning = false;
+            setStatus(isRunning, `Stopped monitoring at ${formatDate(new Date())}.`);
+        }
+        function setStatus(isRunning, message) {
+            $("#status").css('color', isRunning ? 'green' : 'red');
+            $("#status").text(message);
+        }
+        function refreshSearch(value) {
+            value = value.trim().toLowerCase();
+            if (value.length > 0) {
+                $("#reset-search").show();
+            }
+            else {
+                $("#reset-search").hide();
+            }
+            $("#rows tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        }
+    </script>
+</head>
+
+<body>
+
+    <h2>Segmentation Activity</h2>
+    <div>
+        <span class="control" id="start-monitor">[start]</span> 
+        <span class="control" id="stop-monitor">[stop]</span> 
+        <span class="control" id="clear-rows">[clear]</span> 
+        <span style="font-style:italic" class="control-label" id="status"></span>
+        <br /><br />
+    </div>
+    <div>
+        <input id="search" type="text" placeholder="Search..."> <span class="control" id="reset-search">reset</span>
+        <br /><br />
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th></th>
+                <th>Message Handled</th>
+                <th>Identifier</th>
+                <th>Event</th>
+                <th>Segment</th>
+                <th>Enter</th>
+                <th>Exit</th>
+                <th>Subscription ID</th>
+            </tr>
+        </thead>
+        <tbody id="rows">
+        </tbody>
+    </table>
+
+</body>
+
+</html>
