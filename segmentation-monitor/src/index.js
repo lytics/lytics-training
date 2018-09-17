@@ -1,4 +1,3 @@
-const projectId = '!!! YOUR GOOGLE CLOUD PROJECT ID GOES HERE !!!';
 const topicName = 'events';
 const subName = 'monitor';
 const timeout = 2000;
@@ -16,9 +15,7 @@ const Buffer = require('safe-buffer').Buffer;
  * @param {*} res 
  */
 exports.acceptEvent = async (req, res) => {
-  const client = new PubSub({
-    projectId: projectId
-  });
+  const client = new PubSub();
   var topic = client.topic(topicName);
   if (!(await topic.exists())) {
     console.log(`Topic does not exist: ${topicName}`);
@@ -53,9 +50,7 @@ exports.readEvents = async (req, res) => {
   if (req.method == 'OPTIONS') {
     res.status(204).send('');
   }
-  const client = new PubSub({
-    projectId: projectId,
-  });
+  const client = new PubSub();
   var topic = client.topic(topicName);
   var sub = topic.subscription(subName);
 
