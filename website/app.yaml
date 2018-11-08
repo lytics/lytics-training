@@ -13,4 +13,16 @@
 
 # [START app_yaml]
 runtime: nodejs8
+#
+# If multiple training sites are need to run under a single 
+# project, each training site is configured to be a separate
+# service.
+#
+# Each service gets its own unique hostname. For example,
+# if the project name is "training" and the service id is
+# "student01", you would access the website with the url:
+# 
+# https://student01-dot-training.appspot.com
+#
+# service: 
 # [END app_yaml]
