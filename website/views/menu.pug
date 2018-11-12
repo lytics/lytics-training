@@ -13,5 +13,6 @@ block content
             p #{category.description}
           each product in category.products
             li
-              img(src=product.image.src, alt=product.image.alt)/
+              a(href=product.url)
+                img(src=product.image.src, alt=product.image.alt)/
               h2 #{product.name}
