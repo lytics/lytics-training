@@ -1,4 +1,4 @@
-var gtmid = '!!! YOUR GTM ACCOUNT ID HERE !!!';
+var gtmid = 'GTM-K97KTQB';
 var express = require('express');
 var router = express.Router();
 
