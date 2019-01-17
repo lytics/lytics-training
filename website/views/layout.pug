@@ -10,11 +10,18 @@ html
     script(type='text/javascript', src='/js/mobile.js')
     // Google Tag Manager
     script.
+            if (localStorage.gtmid == '' || typeof localStorage.gtmid === 'undefined') {
+              console.warn("You have not set your GTM container ID yet. To proceed please set you GTM container ID by pasting the following command in your browsers developer console and replace the temporary ID with your container ID: localStorage.setItem('gtmid', 'YOUR_ID_HERE')");
+            }
+
+            var gtmid = localStorage.gtmid;
+            console.log('currently using GTM container ID: ' + gtmid);
+
             (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
             new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
             j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-            })(window,document,'script','dataLayer','#{gtmid}');
+            })(window,document,'script','dataLayer',gtmid);
     // End Google Tag Manager
   body
     // Google Tag Manager (noscript)
