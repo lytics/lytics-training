@@ -1,21 +1,23 @@
-# Lytics Training
+# Lytics Training Demo Site
 
-A sample frozen yogurt website used to demonstrate and learn about the Lytics platform.
+A sample frozen yogurt e-commerce website used to demonstrate and learn about the Lytics platform. Each team member can deploy their own instance with a unique GTM container.
 
 ## Tech Stack
 
-- **Frontend:** Vue 3 + Vite
+- **Framework:** Vue 3 + Vite
+- **Styling:** Tailwind CSS
 - **Routing:** Vue Router
+- **State:** Pinia
 - **Node Version:** 20.19.0 (managed via Volta)
 - **Package Manager:** Yarn
 - **Deployment:** Google App Engine
 
 ## Prerequisites
 
-- [Volta](https://volta.sh/) for Node.js version management
-- [Google Cloud SDK](https://cloud.google.com/sdk) (for deployment)
+- [Volta](https://volta.sh/) for Node.js version management (or Node 20+)
+- [Google Cloud SDK](https://cloud.google.com/sdk) (for manual deployment)
 
-## Getting Started
+## Local Development
 
 ### Install Dependencies
 
@@ -45,38 +47,41 @@ Output is generated in the `dist/` directory.
 yarn preview
 ```
 
-## Google Tag Manager Setup
+### Test with a GTM Container Locally
 
-This site uses Google Tag Manager for analytics. To configure your GTM container:
-
-1. Open your browser's developer console
-2. Run the following command (replace with your GTM container ID):
-
-```javascript
-localStorage.setItem('gtmid', 'GTM-XXXXXXX')
+```bash
+VITE_GTM_ID=GTM-XXXXXXX yarn build
+yarn preview
 ```
-
-3. Refresh the page
 
 ## Deployment
 
-### Deploy to Google App Engine
+### Automated Deployment (Recommended)
+
+Use the GitHub Actions workflow to deploy your own instance:
+
+1. Go to **Actions** tab in GitHub
+2. Select **"Deploy to Google App Engine"**
+3. Click **"Run workflow"**
+4. Fill in the inputs:
+   - **Subdomain:** Your name (e.g., `mark`, `lindsey`)
+   - **GTM Container ID:** Your GTM container (e.g., `GTM-XXXXXXX`)
+   - **Branch:** `master` (or your feature branch)
+5. Click **"Run workflow"**
+
+Your site will be available at:
+- `http://[subdomain].lyticsdemo.com`
+- `https://[subdomain]-dot-lyticsdemo.uc.r.appspot.com`
+
+### Manual Deployment
 
 ```bash
-yarn build
-gcloud app deploy
+# Build with your GTM container ID
+VITE_GTM_ID=GTM-XXXXXXX yarn build
+
+# Deploy to App Engine with your version name
+gcloud app deploy --project=lyticsdemo --version=yourname --no-promote
 ```
-
-### Multi-Service Deployment
-
-For training environments with multiple students, you can deploy as separate services:
-
-```bash
-yarn build
-gcloud app deploy --service=student01
-```
-
-This creates a unique URL: `https://student01-dot-[project].appspot.com`
 
 ## Project Structure
 
@@ -85,17 +90,30 @@ This creates a unique URL: `https://student01-dot-[project].appspot.com`
 │   ├── main.js           # Vue app entry point
 │   ├── App.vue           # Root component
 │   ├── router/           # Vue Router configuration
-│   ├── components/       # Reusable components (Header, Footer)
+│   ├── stores/           # Pinia stores (cart, auth)
+│   ├── components/       # Reusable components
 │   ├── views/            # Page components
 │   └── data/             # Product and blog data
 ├── public/
 │   ├── images/           # Product and marketing images
 │   └── fonts/            # Web fonts
-├── index.html            # SPA entry point
-├── vite.config.js        # Vite configuration
+├── .github/
+│   └── workflows/        # GitHub Actions deployment workflow
+├── index.html            # SPA entry point with GTM placeholder
+├── vite.config.js        # Vite configuration with GTM injection
 ├── app.yaml              # App Engine configuration
 └── package.json          # Dependencies and scripts
 ```
+
+## How GTM Injection Works
+
+The site uses build-time GTM injection:
+
+1. `index.html` contains `__GTM_CONTAINER_ID__` placeholders
+2. `vite.config.js` has a plugin that replaces these with the `VITE_GTM_ID` environment variable during build
+3. The GitHub Actions workflow sets this variable based on your input
+
+In development mode (no GTM ID set), you'll see a console warning and GTM won't load.
 
 ## Available Scripts
 
@@ -104,3 +122,22 @@ This creates a unique URL: `https://student01-dot-[project].appspot.com`
 | `yarn dev` | Start development server |
 | `yarn build` | Build for production |
 | `yarn preview` | Preview production build locally |
+
+## Contributing
+
+1. Create a feature branch from `master`
+2. Make your changes
+3. Test locally with `yarn dev`
+4. Push your branch
+5. Deploy using the GitHub Actions workflow (select your branch)
+6. Create a pull request when ready
+
+## Repository Secrets (Admin Setup)
+
+For the GitHub Actions workflow to function, these secrets must be configured:
+
+| Secret | Description |
+|--------|-------------|
+| `GCP_PROJECT_ID` | Google Cloud project ID (`lyticsdemo`) |
+| `GCP_SERVICE_ACCOUNT` | Service account email for deployments |
+| `GCP_WORKLOAD_IDENTITY_PROVIDER` | Workload Identity Federation provider |
