@@ -4,26 +4,21 @@ handlers:
   # Serve static assets from the dist folder
   - url: /assets
     static_dir: dist/assets
-    secure: always
 
   # Serve images
   - url: /images
     static_dir: dist/images
-    secure: always
 
   # Serve fonts
   - url: /fonts
     static_dir: dist/fonts
-    secure: always
 
   # Serve favicon
   - url: /favicon.ico
     static_files: dist/favicon.ico
     upload: dist/favicon.ico
-    secure: always
 
   # Serve the SPA for all other routes
   - url: /.*
     static_files: dist/index.html
     upload: dist/index.html
-    secure: always
