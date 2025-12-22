@@ -8,7 +8,7 @@
     <!-- Google Tag Manager -->
     <script>
       (function(w,d,s,l,i){
-        if (!i || i === '__GTM_CONTAINER_ID__') {
+        if (!i || i.indexOf('__GTM_') === 0) {
           console.warn('GTM container ID not configured. Running in development mode.');
           return;
         }
