@@ -1,0 +1,35 @@
+body {
+    font-family: arial, sans-serif;
+}
+.control-label {
+    font-size: 8pt;
+    display: none;
+}
+.control {
+    font-size: 8pt;
+    display: none;
+    cursor: pointer;
+}
+
+table {
+    font-size: 8pt;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th:nth-child(1), td:nth-child(1) {
+    width: 10%;
+    text-align: right;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    padding: 8px;
+    text-align: left;
+    vertical-align: top;
+    width: 12%;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}

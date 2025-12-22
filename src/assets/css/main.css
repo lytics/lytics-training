@@ -1,0 +1,231 @@
+@import "tailwindcss";
+
+/* Custom Design Tokens for Freeze */
+@theme {
+  --color-freeze-dark: #0a0a0f;
+  --color-freeze-darker: #05050a;
+  --color-freeze-card: #12121a;
+  --color-freeze-card-hover: #1a1a25;
+  --color-freeze-cyan: #00d4ff;
+  --color-freeze-cyan-glow: #00d4ff40;
+  --color-freeze-magenta: #e91e8b;
+  --color-freeze-magenta-glow: #e91e8b40;
+  --color-freeze-purple: #8b5cf6;
+  --color-freeze-purple-glow: #8b5cf640;
+  --color-freeze-text: #f0f0f5;
+  --color-freeze-text-muted: #9090a0;
+  --color-freeze-border: #2a2a35;
+
+  --font-display: 'Inter', system-ui, sans-serif;
+}
+
+/* Base styles */
+body {
+  background-color: var(--color-freeze-dark);
+  color: var(--color-freeze-text);
+  font-family: var(--font-display);
+}
+
+/* Glow effects */
+.glow-cyan {
+  box-shadow: 0 0 20px var(--color-freeze-cyan-glow),
+              0 0 40px var(--color-freeze-cyan-glow);
+}
+
+.glow-magenta {
+  box-shadow: 0 0 20px var(--color-freeze-magenta-glow),
+              0 0 40px var(--color-freeze-magenta-glow);
+}
+
+.glow-purple {
+  box-shadow: 0 0 20px var(--color-freeze-purple-glow),
+              0 0 40px var(--color-freeze-purple-glow);
+}
+
+.text-glow-cyan {
+  text-shadow: 0 0 10px var(--color-freeze-cyan-glow),
+               0 0 20px var(--color-freeze-cyan-glow);
+}
+
+.text-glow-magenta {
+  text-shadow: 0 0 10px var(--color-freeze-magenta-glow),
+               0 0 20px var(--color-freeze-magenta-glow);
+}
+
+/* Glass morphism card */
+.glass-card {
+  background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--color-freeze-border);
+}
+
+/* Gradient backgrounds */
+.gradient-radial {
+  background: radial-gradient(ellipse at center, var(--color-freeze-card) 0%, var(--color-freeze-dark) 70%);
+}
+
+/* Button styles */
+.btn-primary {
+  @apply px-6 py-3 bg-freeze-cyan text-freeze-darker font-semibold rounded-full
+         transition-all duration-300 hover:scale-105;
+  box-shadow: 0 0 20px var(--color-freeze-cyan-glow);
+}
+
+.btn-primary:hover {
+  box-shadow: 0 0 30px var(--color-freeze-cyan-glow),
+              0 0 60px var(--color-freeze-cyan-glow);
+}
+
+.btn-secondary {
+  @apply px-6 py-3 border-2 border-freeze-cyan text-freeze-cyan font-semibold
+         rounded-full transition-all duration-300 hover:bg-freeze-cyan
+         hover:text-freeze-darker;
+}
+
+.btn-magenta {
+  @apply px-6 py-3 bg-freeze-magenta text-white font-semibold rounded-full
+         transition-all duration-300 hover:scale-105;
+  box-shadow: 0 0 20px var(--color-freeze-magenta-glow);
+}
+
+/* Product card hover effect */
+.product-card {
+  @apply relative overflow-hidden rounded-2xl transition-all duration-500;
+  background: linear-gradient(180deg, var(--color-freeze-card) 0%, var(--color-freeze-darker) 100%);
+  border: 1px solid var(--color-freeze-border);
+}
+
+.product-card:hover {
+  transform: translateY(-8px);
+  border-color: var(--color-freeze-cyan);
+  box-shadow: 0 20px 40px rgba(0, 212, 255, 0.15),
+              0 0 60px rgba(0, 212, 255, 0.1);
+}
+
+.product-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--color-freeze-cyan), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.product-card:hover::before {
+  opacity: 1;
+}
+
+/* Animated gradient border */
+.gradient-border {
+  position: relative;
+}
+
+.gradient-border::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background: linear-gradient(45deg, var(--color-freeze-cyan), var(--color-freeze-magenta), var(--color-freeze-purple), var(--color-freeze-cyan));
+  background-size: 400% 400%;
+  border-radius: inherit;
+  z-index: -1;
+  animation: gradient-shift 3s ease infinite;
+}
+
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* Smooth page transitions */
+.page-enter-active,
+.page-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.page-enter-from,
+.page-leave-to {
+  opacity: 0;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-freeze-darker);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-freeze-border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-freeze-cyan);
+}
+
+/* Category pill */
+.category-pill {
+  @apply px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 cursor-pointer;
+  background: var(--color-freeze-card);
+  border: 1px solid var(--color-freeze-border);
+  color: var(--color-freeze-text-muted);
+}
+
+.category-pill:hover,
+.category-pill.active {
+  border-color: var(--color-freeze-cyan);
+  color: var(--color-freeze-cyan);
+  box-shadow: 0 0 15px var(--color-freeze-cyan-glow);
+}
+
+/* Input styles */
+.input-dark {
+  @apply w-full px-4 py-3 rounded-lg transition-all duration-300;
+  background: var(--color-freeze-card);
+  border: 1px solid var(--color-freeze-border);
+  color: var(--color-freeze-text);
+}
+
+.input-dark:focus {
+  outline: none;
+  border-color: var(--color-freeze-cyan);
+  box-shadow: 0 0 15px var(--color-freeze-cyan-glow);
+}
+
+.input-dark::placeholder {
+  color: var(--color-freeze-text-muted);
+}
+
+/* Badge */
+.badge {
+  @apply absolute -top-2 -right-2 w-5 h-5 flex items-center justify-center
+         text-xs font-bold rounded-full;
+  background: var(--color-freeze-magenta);
+  color: white;
+}
+
+/* Animated shimmer effect */
+.shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  100% { left: 100%; }
+}
