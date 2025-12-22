@@ -1,0 +1,73 @@
+name: Deploy to Google App Engine
+
+on:
+  workflow_dispatch:
+    inputs:
+      subdomain:
+        description: 'Subdomain/version name (e.g., mark, bob, demo)'
+        required: true
+        type: string
+      gtm_container_id:
+        description: 'GTM Container ID (e.g., GTM-XXXXXXX)'
+        required: true
+        type: string
+      branch:
+        description: 'Branch to deploy from'
+        required: false
+        default: 'master'
+        type: string
+
+env:
+  PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      id-token: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.branch }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Build with GTM Container ID
+        run: yarn build
+        env:
+          VITE_GTM_ID: ${{ inputs.gtm_container_id }}
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+
+      - name: Deploy to App Engine
+        uses: google-github-actions/deploy-appengine@v2
+        with:
+          project_id: ${{ env.PROJECT_ID }}
+          version: ${{ inputs.subdomain }}
+          promote: false
+
+      - name: Output deployment URL
+        run: |
+          echo "## Deployment Complete!" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Your site is now live at:" >> $GITHUB_STEP_SUMMARY
+          echo "- **Custom Domain**: https://${{ inputs.subdomain }}.lyticsdemo.com" >> $GITHUB_STEP_SUMMARY
+          echo "- **App Engine URL**: https://${{ inputs.subdomain }}-dot-${{ env.PROJECT_ID }}.appspot.com" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**GTM Container**: \`${{ inputs.gtm_container_id }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "**Branch**: \`${{ inputs.branch }}\`" >> $GITHUB_STEP_SUMMARY
