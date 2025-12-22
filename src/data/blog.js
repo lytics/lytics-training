@@ -20,7 +20,7 @@ export const blogPosts = [
       <h3>Why It Matters</h3>
       <p>Beyond aesthetics, the swirl actually improves your eating experience. More surface area means more flavor hitting your taste buds with each bite. It's science you can taste!</p>
     `,
-    image: '/images/blog-science-of-swirl.jpeg',
+    image: '/images/blog-science-of-swirl.jpg',
     author: 'Chef Maya Chen',
     date: '2026-01-15',
     category: 'Behind the Scenes',
@@ -63,7 +63,7 @@ export const blogPosts = [
       <h3>10. The Everything</h3>
       <p>Ask for our "Chef's Choice" and let us surprise you with a custom creation!</p>
     `,
-    image: '/images/blog-topping-combinations.jpeg',
+    image: '/images/blog-topping-combinations.jpg',
     author: 'Team Freeze',
     date: '2026-01-10',
     category: 'Tips & Tricks',
@@ -94,7 +94,7 @@ export const blogPosts = [
       <h3>Sugar-Free Options</h3>
       <p>We offer several sugar-free base flavors sweetened with stevia for those watching their sugar intake.</p>
     `,
-    image: '/images/blog-guilt-free.jpeg',
+    image: '/images/blog-guilt-free.jpg',
     author: 'Dr. Sarah Kim, Nutritionist',
     date: '2026-01-05',
     category: 'Health & Wellness',
@@ -125,7 +125,7 @@ export const blogPosts = [
       <h3>Continuous Improvement</h3>
       <p>We're constantly evaluating our supply chain to reduce our environmental footprint and support better practices. This year, we're transitioning to fully compostable cups and spoons.</p>
     `,
-    image: '/images/blog-ingredients.jpeg',
+    image: '/images/blog-ingredients.jpg',
     author: 'Jake Morrison, Founder',
     date: '2024-12-28',
     category: 'Behind the Scenes',
@@ -160,7 +160,7 @@ export const blogPosts = [
         <li>Try our frozen yogurt bark for a mess-free option</li>
       </ul>
     `,
-    image: '/images/blog-seasonal.jpeg',
+    image: '/images/blog-seasonal.jpg',
     author: 'Team Freeze',
     date: '2024-12-20',
     category: 'Seasonal',

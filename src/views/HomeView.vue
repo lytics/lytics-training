@@ -21,7 +21,7 @@ const formatPrice = (price) => {
       <!-- Background Image -->
       <div class="absolute inset-0">
         <img
-          src="/images/hero-banner.jpeg"
+          src="/images/hero-banner.jpg"
           alt="Freeze Frozen Yogurt"
           class="w-full h-full object-cover"
         />
@@ -121,7 +121,7 @@ const formatPrice = (price) => {
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="relative rounded-3xl overflow-hidden">
           <img
-            src="/images/small-banner.jpeg"
+            src="/images/small-banner.jpg"
             alt="New Arrivals"
             class="w-full h-64 md:h-96 object-cover"
           />

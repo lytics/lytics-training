@@ -42,7 +42,7 @@ const closeMobileMenu = () => {
       <div class="flex items-center justify-between h-16 md:h-20">
         <!-- Logo -->
         <router-link to="/" class="flex items-center gap-2 group" @click="closeMobileMenu">
-          <img src="/images/logo.jpeg" alt="Freeze" class="h-10 md:h-12 w-auto" />
+          <img src="/images/logo.jpg" alt="Freeze" class="h-10 md:h-12 w-auto" />
         </router-link>
 
         <!-- Desktop Navigation -->
