@@ -1,8 +1,4 @@
 runtime: nodejs20
-
-vpc_access_connector:
-  name: projects/lyticsdemo/locations/us-central1/connectors/demo-connector
-  egress_setting: all-traffic
   
 handlers:
   # Serve static assets from the dist folder
