@@ -1,5 +1,30 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
+
+const newsletterFrame = ref(null)
+const resizeFrame = () => {
+  const frame = newsletterFrame.value
+  if (frame) {
+    frame.style.height = frame.contentDocument.body.scrollHeight + 'px'
+  }
+}
+
+const handleMessage = (event) => {
+  if (event.origin !== 'http://localhost:3001') return
+  if (event.data && event.data.email) {
+    if (window.jstag) {
+      window.jstag.send({
+        email: event.data.email,
+        firstName: event.data.firstName,
+        lastName: event.data.lastName,
+        _e: 'newsletter_signup'
+      })
+    }
+  }
+}
+
+onMounted(() => window.addEventListener('message', handleMessage))
+onUnmounted(() => window.removeEventListener('message', handleMessage))
 
 const form = ref({
   name: '',
@@ -89,6 +114,19 @@ const hours = [
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
           <!-- Contact Form -->
           <div>
+            <!-- Newsletter Signup (iframe) -->
+            <div class="mb-8 rounded-2xl border border-freeze-border overflow-hidden">
+              <iframe
+                src="http://localhost:3001/newsletter-signup.html"
+                title="Newsletter Signup"
+                class="w-full"
+                style="border: none; display: block;"
+                scrolling="no"
+                ref="newsletterFrame"
+                @load="resizeFrame"
+              />
+            </div>
+
             <h2 class="text-2xl md:text-3xl font-bold text-white mb-6">Send Us a Message</h2>
 
             <div v-if="isSubmitted" class="bg-freeze-cyan/20 border border-freeze-cyan rounded-xl p-6 text-center">

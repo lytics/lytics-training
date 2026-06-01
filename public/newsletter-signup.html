@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Newsletter Signup</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: #12121a;
+      color: #f0f0f5;
+      font-family: 'Inter', system-ui, sans-serif;
+      padding: 24px;
+    }
+
+    h2 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    p {
+      font-size: 0.875rem;
+      color: #9090a0;
+      margin-bottom: 20px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: #9090a0;
+      margin-bottom: 6px;
+    }
+
+    input {
+      width: 100%;
+      background-color: #0a0a0f;
+      border: 1px solid #2a2a35;
+      border-radius: 8px;
+      color: #f0f0f5;
+      font-size: 0.875rem;
+      padding: 10px 14px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    input::placeholder { color: #9090a0; }
+
+    input:focus { border-color: #00d4ff; }
+
+    button {
+      margin-top: 16px;
+      width: 100%;
+      background-color: #00d4ff;
+      color: #05050a;
+      font-weight: 700;
+      font-size: 0.875rem;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+
+    button:hover { opacity: 0.85; }
+    button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .success {
+      display: none;
+      text-align: center;
+      padding: 20px;
+      background-color: rgba(0, 212, 255, 0.1);
+      border: 1px solid #00d4ff;
+      border-radius: 12px;
+    }
+
+    .success p { color: #f0f0f5; margin-bottom: 0; }
+  </style>
+</head>
+<body>
+  <h2>Stay in the Loop</h2>
+  <p>Sign up for exclusive flavors, promotions, and froyo news.</p>
+
+  <form id="newsletter-form">
+    <div class="form-row">
+      <div>
+        <label for="first-name">First Name</label>
+        <input id="first-name" name="firstName" type="text" placeholder="Jane" required />
+      </div>
+      <div>
+        <label for="last-name">Last Name</label>
+        <input id="last-name" name="lastName" type="text" placeholder="Doe" />
+      </div>
+    </div>
+    <div>
+      <label for="email">Email Address</label>
+      <input id="email" name="email" type="email" placeholder="jane@example.com" required />
+    </div>
+    <button type="submit" id="submit-btn">Subscribe</button>
+  </form>
+
+  <div class="success" id="success-msg">
+    <p>You're subscribed! Thanks for joining the Freeze community.</p>
+  </div>
+
+  <script>
+    document.getElementById('newsletter-form').addEventListener('submit', function (e) {
+      e.preventDefault()
+
+      const firstName = document.getElementById('first-name').value
+      const lastName = document.getElementById('last-name').value
+      const email = document.getElementById('email').value
+
+      const btn = document.getElementById('submit-btn')
+      btn.disabled = true
+      btn.textContent = 'Subscribing...'
+
+      window.parent.postMessage(
+        { email: email, firstName: firstName, lastName: lastName },
+        'http://lindseygreenwood.lyticsdemo.com'
+      )
+
+      setTimeout(() => {
+        document.getElementById('newsletter-form').style.display = 'none'
+        document.getElementById('success-msg').style.display = 'block'
+      }, 800)
+    })
+  </script>
+</body>
+</html>
