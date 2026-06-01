@@ -2,15 +2,12 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 
 const newsletterFrame = ref(null)
-const resizeFrame = () => {
-  const frame = newsletterFrame.value
-  if (frame) {
-    frame.style.height = frame.contentDocument.body.scrollHeight + 'px'
-  }
-}
 
 const handleMessage = (event) => {
   if (event.origin !== 'http://localhost:3001') return
+  if (event.data && event.data.height) {
+    newsletterFrame.value.style.height = event.data.height + 'px'
+  }
   if (event.data && event.data.email) {
     if (window.jstag) {
       window.jstag.send({
@@ -123,7 +120,6 @@ const hours = [
                 style="border: none; display: block;"
                 scrolling="no"
                 ref="newsletterFrame"
-                @load="resizeFrame"
               />
             </div>
 

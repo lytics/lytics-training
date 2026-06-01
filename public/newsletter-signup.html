@@ -113,6 +113,11 @@
   </div>
 
   <script>
+    window.parent.postMessage(
+      { height: document.body.scrollHeight },
+      'http://lindseygreenwood.lyticsdemo.com'
+    )
+
     document.getElementById('newsletter-form').addEventListener('submit', function (e) {
       e.preventDefault()
 
