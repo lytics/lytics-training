@@ -113,10 +113,11 @@
   </div>
 
   <script>
-    window.parent.postMessage(
-      { height: document.body.scrollHeight },
-      'http://lindseygreenwood.lyticsdemo.com'
-    )
+    var parentOrigin = (window.location.ancestorOrigins && window.location.ancestorOrigins[0]) || '*'
+
+    window.addEventListener('load', function () {
+      window.parent.postMessage({ height: document.body.scrollHeight }, parentOrigin)
+    })
 
     document.getElementById('newsletter-form').addEventListener('submit', function (e) {
       e.preventDefault()
@@ -131,7 +132,7 @@
 
       window.parent.postMessage(
         { email: email, firstName: firstName, lastName: lastName },
-        'http://lindseygreenwood.lyticsdemo.com'
+        parentOrigin
       )
 
       setTimeout(() => {
