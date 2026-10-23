@@ -173,7 +173,7 @@ const handleClose = () => {
           >
             <div v-if="showDemoCredentials" class="mt-6 p-4 bg-freeze-card rounded-lg border border-freeze-cyan/50 overflow-hidden">
               <p class="text-freeze-cyan text-sm mb-2 font-medium">Demo credentials unlocked!</p>
-              <p class="text-freeze-text text-sm mb-2">Password for all users: <span class="text-freeze-cyan font-mono">imademouser</span></p>
+              <p class="text-freeze-text text-sm mb-2">Password for all users: <span class="text-freeze-cyan font-mono">changeme</span></p>
               <div class="max-h-32 overflow-y-auto space-y-1 text-sm">
                 <p v-for="user in demoUsers" :key="user.id" class="text-freeze-text">
                   <span class="text-freeze-cyan">{{ user.email }}</span>
